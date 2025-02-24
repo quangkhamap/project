@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #333;
+            color: white;
+            padding: 1em;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (Notification.permission === "default") {
+                Notification.requestPermission().then(permission => {
+                    console.log("Notification permission:", permission);
+                });
+            }
+        });
+
+        function showAlert() {
+            alert('Hello! Welcome to my simple website.');
+        }
+
+        function showNotification() {
+            if (Notification.permission === "granted") {
+                new Notification("New Notification", {
+                    body: "You have a new message from the website!",
+                    icon: "https://via.placeholder.com/50"
+                });
+            } else if (Notification.permission === "default") {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        showNotification();
+                    } else {
+                        alert("Notifications are blocked. Please enable them in browser settings.");
+                    }
+                });
+            } else {
+                alert("Notifications are blocked. Enable them in browser settings.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Simple Website</h1>
+    </header>
+    <section>
+        <p>This is a simple HTML page with basic styling.</p>
+        <button onclick="showAlert()">Click Me</button>
+        <button onclick="showNotification()">Notify Me</button>
+    </section>
+    <footer>
+        <p>&copy; 2025 My Simple Website</p>
+    </footer>
+</body>
+</html>
+
